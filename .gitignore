@@ -1,0 +1,22 @@
+# Environnement virtuel (se recrée avec requirements.txt)
+.venv/
+
+# Fichiers temporaires de Python
+__pycache__/
+*.pyc
+
+# Données et résultats lourds (ne jamais versionner)
+data/
+outputs/
+checkpoints/
+*.pt
+*.pth
+*.tif
+*.zip
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Réglages personnels de l'éditeur et du système
+.vscode/
+Thumbs.db

@@ -1,0 +1,4 @@
+# PyTorch avec support GPU : installer d'abord avec
+#   python -m pip install torch torchvision --index-url https://download.pytorch.org/whl/cu132
+torch>=2.15
+torchvision
