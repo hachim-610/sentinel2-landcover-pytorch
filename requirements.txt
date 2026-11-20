@@ -4,3 +4,4 @@ torch>=2.15
 torchvision
 torchgeo
 matplotlib
+scikit-learn
