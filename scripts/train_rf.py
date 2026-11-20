@@ -3,6 +3,8 @@
 import time
 from pathlib import Path
 
+import numpy as np
+
 import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import (
@@ -60,4 +62,33 @@ fig.tight_layout()
 out_path = Path("figures/rf_confusion_matrix.png")
 fig.savefig(out_path, dpi=150)
 print("Figure enregistrée dans", out_path)
-plt.show()
+
+#plt.show() # si affichage de la matrice de confusion seule
+
+# --- 5. Importance des caractéristiques ---
+BAND_NAMES = ["B01", "B02", "B03", "B04", "B05", "B06", "B07",
+              "B08", "B09", "B10", "B11", "B12", "B8A"]
+
+# TODO 7 : construire la liste des 26 noms de caractéristiques, dans le même ordre que X :
+#          d'abord "B01_mean", ..., "B8A_mean", puis "B01_std", ..., "B8A_std"
+feature_names = [f"{f}_mean" for f in BAND_NAMES]+[f"{f}_std" for f in BAND_NAMES]
+# print(len(feature_names), feature_names[0], feature_names[12], feature_names[13], feature_names[25]) # print de vérification
+
+# TODO 8 : récupérer l'importance de chaque caractéristique (26 valeurs)
+importances = rf.feature_importances_
+
+# Tri croissant : barh dessine la première barre en bas,
+# donc la caractéristique la plus importante apparaîtra en haut du graphique
+order = np.argsort(importances)
+
+fig2, ax2 = plt.subplots(figsize=(8, 9))
+ax2.barh(np.array(feature_names)[order], importances[order])
+ax2.set_xlabel("Mean decrease in impurity")
+ax2.set_title("Random Forest – feature importance")
+fig2.tight_layout()
+
+out_path2 = Path("figures/rf_feature_importance.png")
+fig2.savefig(out_path2, dpi=150)
+print("Figure enregistrée dans", out_path2)
+
+plt.show()  # affiche les deux figures
